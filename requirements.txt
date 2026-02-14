@@ -8,3 +8,6 @@ pickle
 sklearn
 xgboost
 streamlit
+scikit-learn
+joblib
+os
