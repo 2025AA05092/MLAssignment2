@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import os
 from scikit-learn.metrics import classification_report, confusion_matrix
-from scikit-learnklearn.metrics import (
+from scikit-learn.metrics import (
     accuracy_score, precision_score, recall_score, 
     f1_score, roc_auc_score, matthews_corrcoef
 )
