@@ -49,9 +49,9 @@ if uploaded_file is not None:
             
             # 3. & 4. Display Metrics & Visuals
             accuracy = accuracy_score(y_test, y_pred)
-            precision = precision_score(y_test, y_pred)
-            recall = recall_score(y_test, y_pred)
-            f1 = f1_score(y_test, y_pred)
+            precision = precision_score(y_test, y_pred, average='weighted')
+            recall = recall_score(y_test, y_pred, average='weighted')
+            f1 = f1_score(y_test, y_pred, average='weighted')
             mcc = matthews_corrcoef(y_test, y_pred)
             try:
               auc = roc_auc_score(y_test, y_probs)
@@ -69,13 +69,8 @@ if uploaded_file is not None:
             col5.metric("F1 Score", f"{f1:.4f}")
             col6.metric("MCC", f"{mcc:.4f}")
           
-            col1, col2 = slt.columns(2)
+            col1, col2 = slt.columns(2)       
             with col1:
-                slt.write("#### Classification Report")
-                report = classification_report(y_test, y_pred, output_dict=True)
-                slt.dataframe(pd.DataFrame(report).transpose())
-            
-            with col2:
                 slt.write("#### Confusion Matrix")
                 fig, ax = plt.subplots()
                 sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Greens', ax=ax)
