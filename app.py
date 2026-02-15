@@ -23,17 +23,17 @@ model_folder = "model"
 model_files = [f for f in os.listdir(model_folder) if f.endswith('.pkl')]
 
 slt.sidebar.header("2. Select Model")
-selected_model_name = st.sidebar.selectbox("Choose a pickle model", model_files)
+selected_model_name = slt.sidebar.selectbox("Choose a pickle model", model_files)
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     slt.write("### Test Data Preview", df.head())
     
-    target_col = st.selectbox("Select the target column", df.columns, index=len(df.columns)-1)
+    target_col = slt.selectbox("Select the target column", df.columns, index=len(df.columns)-1)
     X_test = df.drop(columns=['Stress Keeps Patient from Sleeping'])
     y_test = df['Stress Keeps Patient from Sleeping']
 
-    if st.button("Evaluate Model"):
+    if slt.button("Evaluate Model"):
         try:
             # Load selected model using Pickle
             model_path = os.path.join(model_folder, selected_model_name)
@@ -59,8 +59,8 @@ if uploaded_file is not None:
               auc = 0.0
 
             slt.subheader("Key Performance Indicators")
-            col1, col2, col3 = st.columns(3)
-            col4, col5, col6 = st.columns(3)
+            col1, col2, col3 = slt.columns(3)
+            col4, col5, col6 = slt.columns(3)
 
             col1.metric("Accuracy", f"{accuracy:.2%}")
             col2.metric("AUC", f"{auc:.3f}")
@@ -69,19 +69,19 @@ if uploaded_file is not None:
             col5.metric("F1 Score", f"{f1:.3f}")
             col6.metric("MCC", f"{mcc:.3f}")
           
-            col1, col2 = st.columns(2)
+            col1, col2 = slt.columns(2)
             with col1:
-                st.write("#### Classification Report")
+                slt.write("#### Classification Report")
                 report = classification_report(y_test, y_pred, output_dict=True)
-                st.dataframe(pd.DataFrame(report).transpose())
+                slt.dataframe(pd.DataFrame(report).transpose())
             
             with col2:
-                st.write("#### Confusion Matrix")
+                slt.write("#### Confusion Matrix")
                 fig, ax = plt.subplots()
                 sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Greens', ax=ax)
-                st.pyplot(fig)
+                slt.pyplot(fig)
                 
         except Exception as e:
-            st.error(f"Error: {e}. Ensure the model and test data features match.")
+            slt.error(f"Error: {e}. Ensure the model and test data features match.")
 else:
-    st.info("Upload a test CSV file to begin.")
+    slt.info("Upload a test CSV file to begin.")
