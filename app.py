@@ -49,9 +49,9 @@ if uploaded_file is not None:
             
             # 3. & 4. Display Metrics & Visuals
             accuracy = accuracy_score(y_test, y_pred)
-            precision = precision_score(y_test, y_pred, average='weighted')
-            recall = recall_score(y_test, y_pred, average='weighted')
-            f1 = f1_score(y_test, y_pred, average='weighted')
+            precision = precision_score(y_test, y_pred)
+            recall = recall_score(y_test, y_pred)
+            f1 = f1_score(y_test, y_pred)
             mcc = matthews_corrcoef(y_test, y_pred)
             try:
               auc = roc_auc_score(y_test, y_probs)
@@ -62,12 +62,12 @@ if uploaded_file is not None:
             col1, col2, col3 = slt.columns(3)
             col4, col5, col6 = slt.columns(3)
 
-            col1.metric("Accuracy", f"{accuracy:.2%}")
-            col2.metric("AUC", f"{auc:.3f}")
-            col3.metric("Precision", f"{precision:.3f}")
-            col4.metric("Recall", f"{recall:.3f}")
-            col5.metric("F1 Score", f"{f1:.3f}")
-            col6.metric("MCC", f"{mcc:.3f}")
+            col1.metric("Accuracy", f"{accuracy:.4f}")
+            col2.metric("AUC", f"{auc:.4f}")
+            col3.metric("Precision", f"{precision:.4f}")
+            col4.metric("Recall", f"{recall:.4f}")
+            col5.metric("F1 Score", f"{f1:.4f}")
+            col6.metric("MCC", f"{mcc:.4f}")
           
             col1, col2 = slt.columns(2)
             with col1:
