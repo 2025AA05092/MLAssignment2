@@ -1,3 +1,4 @@
+streamlit
 pandas
 numpy
 matplotlib
@@ -5,7 +6,6 @@ seaborn
 pickle
 sklearn
 xgboost
-streamlit
 scikit-learn
 joblib
 os
